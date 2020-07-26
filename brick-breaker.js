@@ -3,37 +3,44 @@ let paddle
 let ball
 let bricks
 let gameState
+const speedIncrease = 0.05;
+let life = 3
 
 function setup() {
-  createCanvas(800, 600)
+  
+  
+  createCanvas(800, 600);
 
-  let colors = createColors()
+  // let colors = createColors()
   gameState = 'playing'
   paddle = new Paddle()
   ball = new Ball(paddle)
-
-  bricks = createBricks(colors)
+  bricks = createBricks()
+  
 }
 
-function createColors() {
-  const colors = []
-  colors.push(color(265, 165, 0))
-  colors.push(color(135, 206, 250))
-  colors.push(color(147, 112, 219))
-  for (let i = 0; i < 10; i++) {
-    colors.push(color(random(0, 255), random(0, 255), random(0, 255)))
-  }
-  return colors
-}
+// We are only using 3 colors for the bricks based on their toughness.
+// So we don't need to generate a list of colors. 
 
-function createBricks(colors) {
+// function createColors() {
+//   const colors = []
+//   colors.push(color(265, 165, 0))
+//   colors.push(color(135, 206, 250))
+//   colors.push(color(147, 112, 219))
+//   for (let i = 0; i < 10; i++) {
+//     colors.push(color(random(0, 255), random(0, 255), random(0, 255)))
+//   }
+//   return colors
+// }
+
+function createBricks() {
   const bricks = []
   const rows = 10
   const bricksPerRow = 10
   const brickWidth = width / bricksPerRow
   for (let row = 0; row < rows; row++) {
     for (let i = 0; i < bricksPerRow; i++) {
-      brick = new Brick(createVector(brickWidth * i, 25 * row), brickWidth, 25, colors[floor(random(0, colors.length))])
+      brick = new Brick(createVector(brickWidth * i, 25 * row), brickWidth, 25, rows - row, Math.floor( Math.random() * 3 + 1 ))
       bricks.push(brick) 
     }
   }
@@ -42,7 +49,7 @@ function createBricks(colors) {
 
 function draw() {
   if(gameState === 'playing') {
-    background(0)
+    background(color(7, 26, 82))
 
     ball.bounceEdge()
     ball.bouncePaddle()
@@ -59,8 +66,13 @@ function draw() {
       const brick = bricks[i]
       if (brick.isColliding(ball)) {
         ball.reverse('y')
-        bricks.splice(i, 1)
+       
+        if(brick.toughness === 1) {  bricks.splice(i, 1) }// change toughness
+        else {brick.toughness-=1}
+        
         playerScore += brick.points
+        ball.velocity.x= Math.sign(ball.velocity.x) * (Math.abs(ball.velocity.x)+speedIncrease) // increase speed of the ball
+        ball.velocity.y= Math.sign(ball.velocity.y) * (Math.abs(ball.velocity.y)+speedIncrease)
       } else {
         brick.display()
       }
@@ -71,10 +83,13 @@ function draw() {
 
     textSize(32)
     fill(255)
-    text(`Score:${playerScore}`, width - 150, 50)
+    // text(`Score:${playerScore}`, width - 150, 50) 
+    score.innerHTML = playerScore // Show score outside canvas.
+    showLife.innerHTML = life 
 
     if (ball.belowBottom()) {
-      gameState = 'Lose'
+      if (life!==1) {life -= 1; ball = new Ball(paddle)}
+      else gameState = 'Lose'
     }
 
     if (bricks.length === 0) {

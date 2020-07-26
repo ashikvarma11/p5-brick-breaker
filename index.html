@@ -5,6 +5,67 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Brick Breaker Game</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+  <style text="text/css">
+  .p5Canvas{
+    /* margin:0 auto;
+    display: block; */
+  }
+
+  body {
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Montserrat';
+    padding-top:2em;
+  }
+  .scoreSheet {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #score{
+    font-weight: 800;
+    font-size: 3rem;
+  }
+
+.landing-text {
+  display: flex;
+  flex-direction: column;
+  margin-left:3em;   
+  align-items: center;
+}
+
+.rules-section{
+    margin-top:4em;
+    display: flex;
+    width:60%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.rules-heading{
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+.rule{
+    padding: 1.5em 0;
+    font-weight: 500;
+    position: relative;
+    word-wrap: break-word;
+}
+
+#showLife {
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0 0.5em;
+}
+  
+  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
   <script src="Paddle.js"></script>
   <script src="Ball.js"></script>
@@ -12,5 +73,18 @@
   <script src="brick-breaker.js"></script>
 </head>
 <body>
+  <div class="landing-text">
+    <div class="scoreSheet"><h1>SCORE</h1> <span id="score"></span></div>
+    <div class="rules-section">
+      <div class="rules-heading">RULES</div>
+      <div class="rules">
+        <div class="rule"> You have <span id="showLife"> 3</span> life.</div>
+        <div class="rule">Different colored bricks have different points.</div>
+        <div class="rule">Speed increases as you score more points.</div>
+        <div class="rule">Harder bricks take more than one bounce to destroy</div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
