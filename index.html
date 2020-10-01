@@ -43,7 +43,7 @@
 .rules-section{
     margin-top:4em;
     display: flex;
-    width:60%;
+    width:100%;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -54,6 +54,7 @@
 }
 .rule{
     padding: 1.5em 0;
+    margin-left:1em;
     font-weight: 500;
     position: relative;
     word-wrap: break-word;
@@ -63,6 +64,25 @@
   font-weight: 800;
   font-size: 2rem;
   margin: 0 0.5em;
+}
+
+.rules {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.bullet {
+  width:14px;
+  height: 14px;
+  /* position: absolute; */
+  border-radius: 50%;
+  background-color: black;
+}
+
+.rule-block {
+  display: flex;
+  align-items: baseline;
+
 }
   
   </style>
@@ -78,10 +98,16 @@
     <div class="rules-section">
       <div class="rules-heading">RULES</div>
       <div class="rules">
-        <div class="rule"> You have <span id="showLife"> 3</span> life.</div>
-        <div class="rule">Different colored bricks have different points.</div>
-        <div class="rule">Speed increases as you score more points.</div>
-        <div class="rule">Harder bricks take more than one bounce to destroy</div>
+        <div class="rule-block">
+          <span class="bullet"></span><div class="rule"> You have <span id="showLife"> 3</span> life.</div>
+        </div>
+        <div class="rule-block"><span class="bullet"></span> <div class="rule">Different colored bricks have different points.</div></div>
+        <div class="rule-block"><span class="bullet"></span><div class="rule">Speed increases as you score more points.</div></div>
+        <div class="rule-block"><span class="bullet"></span><div class="rule">Harder bricks take more than one bounce to destroy</div></div>
+
+        
+        
+        
       </div>
     </div>
   </div>
